@@ -1,0 +1,122 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2759
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>Project Grid</title>\
+    <style>\
+        body \{\
+            font-family: Arial, sans-serif;\
+            padding: 20px;\
+        \}\
+        .navbar \{\
+            display: flex;\
+            flex-wrap: wrap;\
+            gap: 10px;\
+            margin-bottom: 20px;\
+        \}\
+        .navbar button \{\
+            padding: 10px 20px;\
+            cursor: pointer;\
+        \}\
+        .grid \{\
+            display: flex;\
+            flex-wrap: wrap;\
+            gap: 10px;\
+        \}\
+        .grid-item \{\
+            width: calc(33.333% - 10px);\
+            border: 1px solid #ccc;\
+            padding: 10px;\
+            text-align: center;\
+        \}\
+        .hidden \{\
+            display: none;\
+        \}\
+    </style>\
+</head>\
+<body>\
+\
+<div class="navbar">\
+    <button onclick="filterProjects('AF01')">AF01</button>\
+    <button onclick="filterProjects('AF02')">AF02</button>\
+    <button onclick="filterProjects('CO01')">CO01</button>\
+    <button onclick="filterProjects('CO02')">CO02</button>\
+    <button onclick="filterProjects('GSD03')">GSD03</button>\
+    <button onclick="filterProjects('GSD04')">GSD04</button>\
+    <button onclick="filterProjects('UVA02')">UVA02</button>\
+    <button onclick="filterProjects('UVA03')">UVA03</button>\
+    <button onclick="filterProjects('UVA05')">UVA05</button>\
+    <button onclick="filterProjects('UVA06')">UVA06</button>\
+    <button onclick="filterProjects('UVA07')">UVA07</button>\
+    <button onclick="filterProjects('UVA08')">UVA08</button>\
+</div>\
+\
+<div class="grid" id="grid">\
+    <!-- Images will be inserted here by JavaScript -->\
+</div>\
+\
+<script>\
+    const fileNames = [\
+        'AF01_12.jpg', 'AF01_13.jpg', 'AF01_14.jpg', 'AF01_15.jpg', 'AF01_16.jpg', 'AF01_17.jpg',\
+        'AF01_18.jpg', 'AF01_19.jpg', 'AF01_20.jpg', 'AF01_21.jpg', 'AF01_22.jpg', 'AF01_23.jpg',\
+        'AF01_24.jpg', 'AF01_25.jpg', 'AF01_26.jpg', 'AF01_27.jpg', 'AF02_1.jpg', 'AF02_2.jpg',\
+        'CO01_1.jpg', 'CO01_2.jpg', 'CO01_5.jpg', 'CO01_6.jpg', 'CO01_7.jpg', 'CO01_8.jpg',\
+        'CO01_9.jpg', 'CO01_10.jpg', 'CO01_11.jpg', 'CO01_12.jpg', 'CO01_13.jpg', 'CO01_14.jpg',\
+        'CO01_15.jpg', 'CO01_16.jpg', 'CO01_17.jpg', 'CO01_18.jpg', 'CO01_19.jpg', 'CO01_20.jpg',\
+        'CO01_21.jpg', 'CO01_22.jpg', 'CO01_23.jpg', 'CO01_24.jpg', 'CO01_25.jpg', 'CO01_26.jpg',\
+        'CO01_27.jpg', 'CO01_29.jpg', 'CO01_30.jpg', 'CO01_34.jpg', 'CO02_1.jpg', 'CO02_2.jpg',\
+        'CO02_3.jpg', 'CO02_5.jpg', 'CO02_6.jpg', 'CO02_8.jpg', 'GSD03_1.jpg', 'GSD03_2.jpg',\
+        'GSD03_3.jpg', 'GSD03_5.jpg', 'GSD03_6.jpg', 'GSD03_7.jpg', 'GSD03_8.jpg', 'GSD03_9.jpg',\
+        'GSD03_10.jpg', 'GSD03_11.jpg', 'GSD03_12.jpg', 'GSD03_13.jpg', 'GSD03_14.jpg', 'GSD03_15.jpg',\
+        'GSD03_16.jpg', 'GSD03_17.jpg', 'GSD03_18.jpg', 'GSD03_19.jpg', 'GSD03_20.jpg', 'GSD03_21.jpg',\
+        'GSD03_22.jpg', 'GSD03_23.jpg', 'GSD03_24.jpg', 'GSD03_25.jpg', 'GSD04_1.jpg', 'GSD04_2.jpg',\
+        'GSD04_3.jpg', 'GSD04_6.jpg', 'UVA02_1.jpg', 'UVA02_2.jpg', 'UVA02_3.jpg', 'UVA02_4.jpg',\
+        'UVA02_8.jpg', 'UVA03_1.jpg', 'UVA03_2.jpg', 'UVA03_3.jpg', 'UVA03_4.jpg', 'UVA03_5.jpg',\
+        'UVA03_6.jpg', 'UVA05_1.jpg', 'UVA05_2.jpg', 'UVA05_3.jpg', 'UVA05_4.jpg', 'UVA05_5.jpg',\
+        'UVA05_6.jpg', 'UVA05_8.jpg', 'UVA05_9.jpg', 'UVA06_1.jpg', 'UVA06_2.jpg', 'UVA06_3.jpg',\
+        'UVA07_1.jpg', 'UVA07_2.jpg', 'UVA07_3.jpg', 'UVA08_01.jpg', 'UVA08_02.jpg', 'UVA08_03.jpg',\
+        'UVA08_04.jpg', 'AF01_8.png', 'AF01_9.png', 'AF01_10.png', 'AF01_11.png', 'CO01_3.png',\
+        'CO01_4.png', 'CO01_33.png', 'CO02_4.png', 'CO02_7.png', 'GSD03_4.png', 'GSD04_4.png',\
+        'GSD04_5.png', 'GSD04_7.png', 'GSD04_8.png', 'GSD04_9.png', 'GSD04_10.png', 'GSD04_11.png',\
+        'GSD04_12.png', 'GSD04_13.png', 'UVA02_5.png', 'UVA02_6.png', 'UVA02_7.png', 'UVA02_9.png',\
+        'UVA02_10.png', 'UVA02_11.png', 'UVA05_7.png', 'AF01_1.jpg.webp', 'AF01_2.webp', 'AF01_3.jpg.webp',\
+        'AF01_4.jpg.webp', 'AF01_5.webp', 'AF01_6.jpg.webp', 'AF01_7.webp'\
+    ];\
+\
+    const grid = document.getElementById('grid');\
+\
+    // Populate grid with images\
+    fileNames.forEach(fileName => \{\
+        const div = document.createElement('div');\
+        div.classList.add('grid-item');\
+        const img = document.createElement('img');\
+        img.src = `images/$\{fileName\}`;\
+        img.alt = fileName;\
+        div.appendChild(img);\
+        grid.appendChild(div);\
+    \});\
+\
+    function filterProjects(tag) \{\
+        const items = document.querySelectorAll('.grid-item');\
+        items.forEach(item => \{\
+            const img = item.querySelector('img');\
+            if (img && img.src.includes(tag)) \{\
+                item.classList.remove('hidden');\
+            \} else \{\
+                item.classList.add('hidden');\
+            \}\
+        \});\
+    \}\
+</script>\
+\
+</body>\
+</html>\
+}
